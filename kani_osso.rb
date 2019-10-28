@@ -9,7 +9,7 @@ bot.message(containing: kani_list) do |event|
 end
 
 bot.message(containing: "炊飯器") do |event|
-  event.respond "@Kani#0599 炊飯器の保温時間を切りなさい。"
+  event.respond "<!@Kani#0599> 炊飯器の保温を切りなさい!!!!"
 end
 
 bot.command :late do |event,time|
