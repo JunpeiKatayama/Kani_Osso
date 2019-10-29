@@ -1,10 +1,13 @@
 require 'discordrb'
+require "time"
 bot = Discordrb::Commands::CommandBot.new token: ENV['DBOT_KANI_OSSO_TOKEN'],client_id: ENV['DBOT_KANI_OSSO_ID'], prefix: '/'
 
 # helpコマンド
 bot.command :ko_help do |event|
   event.respond "コマンド一覧
   /late 時間...遅刻時間を入力（負の値も設定可）
+  /promise 24:59 ...部活開始時間を入力
+  /arrive ...部活に参加した時間を宣言
   /party   ...現在のパーティの状態を確認します
   /join    ...パーティに参加する
   /remove  ...パーティを脱退します
@@ -27,6 +30,38 @@ bot.command :late do |event,time|
   event.respond "かにさんは合計#{late_time}分遅刻しています"
   File.open("late_time_default.txt", "w+") do |f|
     f.puts(late_time_default)
+  end
+end
+
+# 部活の開始時間を約束
+promised_time = nil
+bot.command :promise do |event,time|
+  promised_time = Time.parse(time)
+  event.respond "部活は#{promised_time.strftime("%H時%M分")}に開始予定です"
+end
+
+# 部活に到着する
+bot.command :arrive do |event,time|
+  time = Time.now
+  diff = promised_time - time
+  # 表示用変数
+  diff_min = (diff.to_i / 60).to_i
+  if diff.to_f > 0
+    event.respond "#{event.user.name}が到着！#{diff_min}分前だ！"
+  elsif diff.to_f < 0
+    event.respond "#{event.user.name}が到着！#{diff_min.abs}分遅刻だ！"
+    # ユーザがかにさんの場合のみ遅刻合計時間を保存・出力する
+    if event.user.name == "Kani"
+      late_time_default += diff_min
+      event.respond "かにさんは合計#{late_time_default}分遅刻しています"
+      File.open("late_time_default.txt", "w+") do |f|
+        f.puts(late_time_default)
+      end
+    end
+  elsif diff.to_f == 0
+    event.respond "#{event.user.name}が到着！時間ぴったり！アメイジング！"
+  else
+    event.respond "例外を発生させるのは、ユーザーの知識不足である。"
   end
 end
 
@@ -72,6 +107,7 @@ bot.command :party do |event|
     event.respond "現在プレイ中のパーティはありません"
   end
 end
+
 # パーティを削除
 bot.command :neru do |event|
   members = []
