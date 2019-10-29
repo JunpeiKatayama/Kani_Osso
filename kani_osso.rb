@@ -14,7 +14,8 @@ bot.message(containing: kani_list) do |event|
 end
 
 bot.message(containing: "炊飯器") do |event|
-  event.respond "かに!!!!!炊飯器の保温を切りなさい!!!!"
+  suihanki_list = ["炊飯器の保温を切りなさい!!!!","炊飯器にバナナ入れるな!!!!"]
+  event.respond "かに!!!!!#{suihanki_list.sample}"
 end
 
 bot.command :late do |event,time|
