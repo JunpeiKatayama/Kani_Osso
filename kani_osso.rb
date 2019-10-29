@@ -45,7 +45,7 @@ bot.command :arrive do |event,time|
   time = Time.now
   diff = promised_time - time
   # 表示用変数
-  diff_min = (diff.to_i / 60).to_i
+  diff_min = (diff.to_i / 60)
   if diff.to_f > 0
     event.respond "#{event.user.name}が到着！#{diff_min}分前だ！"
   elsif diff.to_f < 0
