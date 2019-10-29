@@ -42,18 +42,16 @@ end
 
 # 部活に到着する
 bot.command :arrive do |event|
-  time = Time.now
-  diff = promised_time - time
+  diff = promised_time - Time.now
   # 表示用変数
-  diff_min = (diff.to_f / 60).to_f
-  event.respond "#{diff_min}"
+  diff_min = (diff / 60).to_f
   if diff.to_f > 0
-    event.respond "#{event.user.name}が到着！#{diff_min}分前だ！"
+    event.respond "#{event.user.name}が到着！#{diff_min.to_i}分前だ！"
   elsif diff.to_f < 0
-    event.respond "#{event.user.name}が到着！#{diff_min.abs}分遅刻だ！"
+    event.respond "#{event.user.name}が到着！#{diff_min.to_i.abs}分遅刻だ！"
     # ユーザがかにさんの場合のみ遅刻合計時間を保存・出力する
     if event.user.name == "Kani"
-      late_time_default += diff_min
+      late_time_default += diff_min.to_i
       event.respond "かにさんは合計#{late_time_default}分遅刻しています"
       File.open("late_time_default.txt", "w+") do |f|
         f.puts(late_time_default)
