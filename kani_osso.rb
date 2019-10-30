@@ -7,12 +7,15 @@ bot = Discordrb::Commands::CommandBot.new token: ENV['DBOT_KANI_OSSO_TOKEN'],cli
 late_time_default = 0
 # パーティメンバーの配列
 members = []
+# 部活開始時間の変数
+promised_time = nil
 
 #~をプレイ中
 bot.ready do |event|
   bot.game = "天安門事件"
   sleep 5
 
+  # 現在のパーティメンバー数
   if members.any?
     bot.game = "#{members.length}人パーティ"
     sleep 5
@@ -20,7 +23,14 @@ bot.ready do |event|
     bot.game = "パーティはありません"
     sleep 5
   end
+  
+  # 部活予定時間
+  if promised_time != nil
+    bot.game = "#{promised_time.strftime("%H時%M分")}開始予定"
+    sleep 5
+  end
 
+  # かにさんの累計遅刻時間
   bot.game = "累計遅刻時間：#{late_time_default}分"
   sleep 5
   redo
@@ -59,7 +69,6 @@ bot.command :late do |event,time|
 end
 
 # 部活の開始時間を約束
-promised_time = nil
 bot.command :promise do |event,time|
   promised_time = Time.parse(time)
   event.respond "部活は#{promised_time.strftime("%H時%M分")}に開始予定です"
