@@ -1,24 +1,49 @@
 require 'discordrb'
-require "time"
+require 'time'
+
 bot = Discordrb::Commands::CommandBot.new token: ENV['DBOT_KANI_OSSO_TOKEN'],client_id: ENV['DBOT_KANI_OSSO_ID'], prefix: '/'
+
+# 遅刻時間の変数
+late_time_default = 0
+# パーティメンバーの配列
+members = []
+
+#~をプレイ中
+bot.ready do |event|
+  bot.game = "天安門事件"
+  sleep 5
+
+  if members.any?
+    bot.game = "#{members.length}人パーティ"
+    sleep 5
+  else
+    bot.game = "パーティはありません"
+    sleep 5
+  end
+
+  bot.game = "累計遅刻時間：#{late_time_default}分"
+  sleep 5
+  redo
+end
 
 # helpコマンド
 bot.command :ko_help do |event|
   event.respond "コマンド一覧
-  /late 時間...遅刻時間を入力（負の値も設定可）
-  /promise 24:59 ...部活開始時間を入力
-  /arrive ...部活に参加した時間を宣言
-  /party   ...現在のパーティの状態を確認します
+  /late 時間...遅刻時間を入力する（負の値も設定可）
+  /promise 24:59 ...部活開始時間を入力する
+  /arrive ...部活に参加した時間を宣言する
+  /party   ...現在のパーティの状態を確認する
   /join    ...パーティに参加する
-  /remove  ...パーティを脱退します
-  /neru    ...パーティを解散します
+  /join 名前 ...指定した人をパーティに参加させる
+  /remove  ...パーティを脱退する
+  /remove 名前 ...指定した人をパーティから脱退させる
+  /neru    ...パーティを解散する
   -----------------------
-  かに(蟹)おっそ ...botが代りに謝罪します
-  炊飯器        ...炊飯器運用の正常化を促します"
+  かに(蟹)おっそ ...botが代りに謝罪する
+  炊飯器        ...炊飯器運用の正常化を促す"
 end
 
 # 遅刻時間を読み込み
-late_time_default = 0
 File.open("late_time_default.txt", "r") do |f|
   late_time_default = f.read.to_i
 end
@@ -81,19 +106,33 @@ bot.message(containing: "炊飯器") do |event|
 end
 
 # パーティメンバーを追加
-members = []
 bot.command :join do |event,name|
-  members << event.user.name
-  event.respond "現在#{members.length}名がパーティでプレイ中です
+  # 名前を渡された場合その人をパーティに追加
+  if name
+    members << name
+    event.respond "現在#{members.length}名がパーティでプレイ中です
 メンバーは以下の通りです
 #{members}"
+  # 名前情報がない場合は発言者をパーティに追加
+  else
+    members << event.user.name
+    event.respond "現在#{members.length}名がパーティでプレイ中です
+メンバーは以下の通りです
+#{members}"
+  end
 end
 
 # パーティメンバーを削除
 bot.command :remove do |event,name|
+  if name
+    members.delete(name)
+    event.respond "#{name}がパーティから脱退しました。
+現在#{members.length}名がパーティでプレイ中です"
+  else
   members.delete(event.user.name)
   event.respond "#{event.user.name}がパーティから脱退しました。
 現在#{members.length}名がパーティでプレイ中です"
+  end
 end
 
 # パーティの状態を確認
