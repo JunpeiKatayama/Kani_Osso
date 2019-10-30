@@ -1,5 +1,8 @@
 require 'discordrb'
 require 'time'
+require 'json'
+require 'uri'
+require 'net/http'
 
 bot = Discordrb::Commands::CommandBot.new token: ENV['DBOT_KANI_OSSO_TOKEN'],client_id: ENV['DBOT_KANI_OSSO_ID'], prefix: '/'
 
@@ -111,7 +114,8 @@ end
 
 # 炊飯器の運用を正常化
 bot.message(containing: "炊飯器") do |event|
-  suihanki_list = ["炊飯器の保温を切りなさい!!!!","炊飯器にバナナ入れるな!!!!","水道代忘れるな!!!!","かに!!!!かに!!!!かに!!!!","香港に謝罪しろ!!!!"]
+  suihanki_list = ["炊飯器の保温を切りなさい!!!!","炊飯器にバナナ入れるな!!!!","水道代忘れるな!!!!",
+                  　"かに!!!!かに!!!!かに!!!!","香港に謝罪しろ!!!!","すき・・・❤️"]
   event.respond "<@!394789332881244160>かに!!!!!#{suihanki_list.sample}"
 end
 
@@ -165,10 +169,6 @@ end
 # かにさんの罪を数値化
 # 口座も持ってないのにやばいかもしれないのでコマンド時のみJSON取得
 bot.command :sin do |event|
-require 'json'
-require 'uri'
-require 'net/http'
-
 uri = URI.parse('https://www.gaitameonline.com/rateaj/getrate')
 json = Net::HTTP.get(uri)
 result = JSON.parse(json)
