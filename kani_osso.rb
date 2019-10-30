@@ -48,6 +48,7 @@ bot.command :ko_help do |event|
   /remove  ...パーティを脱退する
   /remove 名前 ...指定した人をパーティから脱退させる
   /neru    ...パーティを解散する
+  /sin ...かにさんの罪深さを表示
   -----------------------
   かに(蟹)おっそ ...botが代りに謝罪する
   炊飯器        ...炊飯器運用の正常化を促す"
@@ -159,6 +160,27 @@ end
 bot.command :neru do |event|
   members = []
   event.respond "パーティは解散しました。"
+end
+
+# かにさんの罪を数値化
+# 口座も持ってないのにやばいかもしれないのでコマンド時のみJSON取得
+bot.command :sin do |event|
+require 'json'
+require 'uri'
+require 'net/http'
+
+uri = URI.parse('https://www.gaitameonline.com/rateaj/getrate')
+json = Net::HTTP.get(uri)
+result = JSON.parse(json)
+# JSONのUSD/JPY部を取得
+doll_yen = result["quotes"][20]["ask"]
+# 罪を㌦に変換
+sin_dollar = (late_time_default / doll_yen.to_f).round(2)
+
+event.respond "かにさんの罪
+総遅刻時間：#{late_time_default}分
+日本円で支払う：#{late_time_default}円
+米国ドルで支払う：#{sin_dollar}ドル(#{Time.now.strftime("%m月%d日")}現在)"
 end
 
 bot.run
