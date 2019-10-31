@@ -89,7 +89,7 @@ bot.command :arrive do |event|
     event.respond "#{event.user.name}が到着！#{diff_min.to_i.abs}分遅刻だ！"
     # ユーザがかにさんの場合のみ遅刻合計時間を保存・出力する
     if event.user.name == "Kani"
-      late_time_default += diff_min.to_i
+      late_time_default += diff_min.to_i.abs
       event.respond "かにさんは合計#{late_time_default}分遅刻しています"
       File.open("late_time_default.txt", "w+") do |f|
         f.puts(late_time_default)
