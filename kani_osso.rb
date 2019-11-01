@@ -52,6 +52,7 @@ bot.command :ko_help do |event|
   /remove 名前 ...指定した人をパーティから脱退させる
   /neru    ...パーティを解散する
   /sin ...かにさんの罪深さを表示
+  /slot ...かにスロットをプレイ
   -----------------------
   かに(蟹)おっそ ...botが代りに謝罪する
   炊飯器        ...炊飯器運用の正常化を促す"
@@ -114,7 +115,8 @@ end
 
 # 炊飯器の運用を正常化
 bot.message(containing: "炊飯器") do |event|
-  suihanki_list = ["炊飯器の保温を切りなさい!!!!", "炊飯器にバナナ入れるな!!!!", "水道代忘れるな!!!!","かに!!!!かに!!!!かに!!!!", "香港に謝罪しろ!!!!", "すき・・・♡"]
+  suihanki_list = ["炊飯器の保温を切りなさい!!!!", "炊飯器にバナナ入れるな!!!!", "水道代忘れるな!!!!","かに!!!!かに!!!!かに!!!!",
+                   "香港に謝罪しろ!!!!", "すき・・・♡", "お父さんとLoLさせろ"]
   event.respond "<@!394789332881244160>かに!!!!!#{suihanki_list.sample}"
 end
 
@@ -186,9 +188,9 @@ end
 mensetu_yotei = {}
 bot.command :mensetu do |event,day,place|
   mensetu_yotei.store(day,place)
+  event.respond "直近の面接予定"
   mensetu_yotei.each do |key,value|
-    event.respond "直近の面接予定
-  #{key}：#{value}"
+    event.respond "#{key}：#{value}"
   end
 end
 
@@ -197,6 +199,22 @@ matchs = 6
 wins = 0
 bot.command :syuukatu_stats do |event,match,win|
   event.respond "僕の就活は#{matchs + match.to_i}戦・#{wins + win.to_i}勝です"
+end
+
+# かにスロット
+count = 0
+slot_list = ["7", "炊飯器", "激臭サプリ", "ミラーボール"]
+bot.command :slot do |event|
+  slot1 = slot_list.sample
+  slot2 = slot_list.sample
+  slot3 = slot_list.sample
+  event.respond "[#{slot1}| #{slot2} |#{slot3}]"
+  count += 1
+  if slot1 == slot2 && slot2 == slot3
+    event.respond "<@!394789332881244160>あたり！！！！当たったよーーー！！！"
+    event.respond "回転数：#{count}"
+    count = 0
+  end
 end
 
 bot.run
