@@ -182,4 +182,21 @@ event.respond "かにさんの罪
 米国ドルで支払う：#{sin_dollar}ドル(#{Time.now.strftime("%m月%d日")}現在)"
 end
 
+# 俺の面接予定
+mensetu_yotei = {}
+bot.command :mensetu do |event,day,place|
+  mensetu_yotei.store(day,place)
+  mensetu_yotei.each do |key,value|
+    event.respond "直近の面接予定
+  #{key}：#{value}"
+  end
+end
+
+# 就活stats
+matchs = 6
+wins = 0
+bot.command :syuukatu_stats do |event,match,win|
+  event.respond "僕の就活は#{matchs + match.to_i}戦・#{wins + win.to_i}勝です"
+end
+
 bot.run
