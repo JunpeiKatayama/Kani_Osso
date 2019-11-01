@@ -1,3 +1,4 @@
+require 'byebug'
 require 'discordrb'
 require 'time'
 require 'json'
