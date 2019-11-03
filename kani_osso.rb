@@ -117,7 +117,7 @@ end
 # 炊飯器の運用を正常化
 bot.message(containing: "炊飯器") do |event|
   suihanki_list = ["炊飯器の保温を切りなさい!!!!", "炊飯器にバナナ入れるな!!!!", "水道代忘れるな!!!!","かに!!!!かに!!!!かに!!!!",
-                   "香港に謝罪しろ!!!!", "すき・・・♡", "お父さんとLoLさせろ"]
+                   "香港に謝罪しろ!!!!", "すき・・・♡", "お父さんとLoLさせろ", "弟DJ!!!!!!!!"]
   event.respond "<@!394789332881244160>かに!!!!!#{suihanki_list.sample}"
 end
 
@@ -204,7 +204,7 @@ end
 
 # かにスロット
 count = 0
-slot_list = ["7", "炊飯器", "激臭サプリ", "ミラーボール"]
+slot_list = ["7", "炊飯器", "激臭サプリ", "ミラーボール", "海老臭マット", "COMMUNE"]
 bot.command :slot do |event|
   slot1 = slot_list.sample
   slot2 = slot_list.sample
@@ -215,6 +215,9 @@ bot.command :slot do |event|
     event.respond "<@!394789332881244160>あたり！！！！当たったよーーー！！！"
     event.respond "回転数：#{count}"
     count = 0
+    if slot 1 == "7"
+      event.respond "<@!394789332881244160>大当たりです!!!!!!!#{event.user.name}さんに500円お支払いください!!!!!"
+    end
   end
 end
 
