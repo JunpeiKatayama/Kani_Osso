@@ -266,4 +266,8 @@ bot.command :slot_help do |event|
   確変は50回転続くぞ〜〜〜〜！！！！！"
 end
 
+bot.command :wifi_fix do |event|
+  event.respond "Wifiを直しました"
+end
+
 bot.run
