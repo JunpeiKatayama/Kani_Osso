@@ -217,10 +217,12 @@ bot.command :slot do |event|
       event.respond "大当たりだ〜〜〜〜〜!!!!"
       event.respond "<@!394789332881244160>かに!!!!!#{event.user.name}に500円払え!!!!!"
       event.respond "回転数：#{SlotMachine.count}"
+      SlotMachine.count_reset
     elsif SlotMachine.is_atari?
       event.respond "当たりだ〜〜〜〜〜!!!!"
       event.respond "#{event.user.name}ナイスぅ~~!!!!!"
       event.respond "回転数：#{SlotMachine.count}"
+      SlotMachine.count_reset
     end
   else
     SlotMachine.roll
@@ -231,10 +233,12 @@ bot.command :slot do |event|
       event.respond "大当たりだ〜〜〜〜〜!!!!"
       event.respond "<@!394789332881244160>かに!!!!!#{event.user.name}に500円払え!!!!!"
       event.respond "回転数：#{SlotMachine.count}"
+      SlotMachine.count_reset
     elsif SlotMachine.is_atari?
       event.respond "当たりだ〜〜〜〜〜!!!!"
       event.respond "#{event.user.name}ナイスぅ~~!!!!!"
       event.respond "回転数：#{SlotMachine.count}"
+      SlotMachine.count_reset
     end
   end
 end

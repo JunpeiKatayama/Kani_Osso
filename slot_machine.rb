@@ -48,7 +48,6 @@ class SlotMachine
   def self.is_atari?
     if @result[0] == @result[1] && @result[1] == @result[2]
       true
-      @count = 0
     end
   end
 
@@ -56,7 +55,6 @@ class SlotMachine
   def self.is_ooatari?
     if @result[0] == "7" && @result[1] == "7" && @result[2] == "7"
       true
-      @count = 0
     end
   end
 
@@ -68,6 +66,10 @@ class SlotMachine
   # スロット回転数のゲッター
   def self.count
     @count
+  end
+
+  def self.count_reset
+    @count = 0
   end
   
   #10%の確率でCLUBを１つ点灯
