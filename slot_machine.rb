@@ -1,6 +1,6 @@
 class SlotMachine
   # スロットの絵柄
-  @slot_list = ["7"]
+  @slot_list = ["7", "炊飯器", "激臭サプリ", "ミラーボール", "海老臭マット", "COMMUNE"]
   # スロットの回転結果の配列
   @result = []
   # スロットの合計回転数
