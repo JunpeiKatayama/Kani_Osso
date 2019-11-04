@@ -100,10 +100,10 @@ class SlotMachine
   def self.kakuhen
     # 5回回転する。当たりが出たらブレイク。
     5.times do |slot|
+      @result = [@slot_list.sample, @slot_list.sample, @slot_list.sample]
       if @result[0] == @result[1] && @result[1] == @result[2]
         break
       end
-      @result = [@slot_list.sample, @slot_list.sample, @slot_list.sample]
     end
     # 確変は50回転まで
     @club_count -= 1
