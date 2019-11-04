@@ -70,7 +70,7 @@ class SlotMachine
   
   #10%の確率でCLUBを１つ点灯
   def self.add_club
-    if rand(10) + 1 == 1
+    if rand(10) == 0
       @club << "🦀"
     end
   end

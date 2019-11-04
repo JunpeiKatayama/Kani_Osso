@@ -56,6 +56,7 @@ bot.command :ko_help do |event|
   /neru    ...パーティを解散
   /sin ...かにさんの罪深さを表示
   /slot ...かにスロットをプレイ
+  /slot_help ...スロットの説明を表示
   /add_slot 名前 ...スロットの絵柄を追加
   /delete_slot 名前 ...該当の絵柄を削除
   -----------------------
@@ -268,6 +269,10 @@ end
 
 bot.command :wifi_fix do |event|
   event.respond "Wifiを直しました"
+end
+
+bot.command :fight_kinpei do |event|
+  event.respond "ありがとう！結構大変だけど内政頑張る〜！"
 end
 
 bot.run
