@@ -208,17 +208,33 @@ end
 
 # かにスロット
 bot.command :slot do |event|
-  SlotMachine.roll
-  event.respond "| #{SlotMachine.result[0]} | #{SlotMachine.result[1]} | #{SlotMachine.result[2]} |"
-  event.respond "回転数：#{SlotMachine.count}"
-  if SlotMachine.is_ooatari?
-    event.respond "大当たりだ〜〜〜〜〜!!!!"
-    event.respond "<@!394789332881244160>かに!!!!!#{event.user.name}に500円払え!!!!!"
-    event.respond "回転数：#{SlotMachine.count}"
-  elsif SlotMachine.is_atari?
-    event.respond "当たりだ〜〜〜〜〜!!!!"
-    event.respond "#{event.user.name}ナイスぅ~~!!!!!"
-    event.respond "回転数：#{SlotMachine.count}"
+  if SlotMachine.is_kakuhen?
+    SlotMachine.kakuhen
+    event.respond "| #{SlotMachine.result[0]} | #{SlotMachine.result[1]} | #{SlotMachine.result[2]} |"
+    event.respond "#{SlotMachine.club} #{SlotMachine.club_count}"
+    if SlotMachine.is_ooatari?
+      event.respond "大当たりだ〜〜〜〜〜!!!!"
+      event.respond "<@!394789332881244160>かに!!!!!#{event.user.name}に500円払え!!!!!"
+      event.respond "回転数：#{SlotMachine.count}"
+    elsif SlotMachine.is_atari?
+      event.respond "当たりだ〜〜〜〜〜!!!!"
+      event.respond "#{event.user.name}ナイスぅ~~!!!!!"
+      event.respond "回転数：#{SlotMachine.count}"
+    end
+  else
+    SlotMachine.roll
+    SlotMachine.add_club
+    event.respond "| #{SlotMachine.result[0]} | #{SlotMachine.result[1]} | #{SlotMachine.result[2]} |"
+    event.respond "#{SlotMachine.club}"
+    if SlotMachine.is_ooatari?
+      event.respond "大当たりだ〜〜〜〜〜!!!!"
+      event.respond "<@!394789332881244160>かに!!!!!#{event.user.name}に500円払え!!!!!"
+      event.respond "回転数：#{SlotMachine.count}"
+    elsif SlotMachine.is_atari?
+      event.respond "当たりだ〜〜〜〜〜!!!!"
+      event.respond "#{event.user.name}ナイスぅ~~!!!!!"
+      event.respond "回転数：#{SlotMachine.count}"
+    end
   end
 end
 
@@ -240,6 +256,14 @@ bot.command :delete_slot do |event,name|
     event.respond "現在の役"
     event.respond "#{SlotMachine.slot_list}"
   end
+end
+
+bot.command :slot_help do |event|
+  event.respond "スロットの説明
+  絵柄が３つ揃うと当たり！
+  ７７７で蟹さんから500円もらえるぞ！
+  🦀が５つ揃うと確変！当選確率5倍だ！！！
+  確変は50回転続くぞ〜〜〜〜！！！！！"
 end
 
 bot.run

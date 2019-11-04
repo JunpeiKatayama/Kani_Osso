@@ -8,6 +8,10 @@ class SlotMachine
   @result = []
   # スロットの合計回転数
   @count = 0
+  #確変ランプの配列
+  @club = []
+  #確変の残り回転数
+  @club_count = 50
   
   # スロットの絵柄一覧のゲッター
   def self.slot_list
@@ -62,5 +66,47 @@ class SlotMachine
   # スロット回転数のゲッター
   def self.count
     @count
+  end
+  
+  #10%の確率でCLUBを１つ点灯
+  def self.add_club
+    if rand(10) + 1 == 1
+      @club << "🦀"
+    end
+  end
+  
+  # clubのゲッター
+  def self.club
+    @club
+  end
+  
+  # CLUB５で確変
+  def self.is_kakuhen?
+    if @club.length == 5 && @club_count > 0
+      true
+    end
+  end
+  
+  # clubの数を取得
+  def self.club_count
+    @club_count
+  end
+
+  # 確変時のロール
+  def self.kakuhen
+    # 5回回転する。当たりが出たらブレイク。
+    5.times do |slot|
+      if @result[0] == @result[1] && @result[1] == @result[2]
+        break
+      end
+      @result = [@slot_list.sample, @slot_list.sample, @slot_list.sample]
+    end
+    # 確変は50回転まで
+    @club_count -= 1
+    # 確変の回転数が０になったらCLUBランプを全て削除
+    if @club_count == 0
+      @club = []
+    end
+    @count += 1
   end
 end
