@@ -5,6 +5,8 @@ require 'json'
 require 'uri'
 require 'net/http'
 
+require './slot_machine'
+
 bot = Discordrb::Commands::CommandBot.new token: ENV['DBOT_KANI_OSSO_TOKEN'],client_id: ENV['DBOT_KANI_OSSO_ID'], prefix: '/'
 
 # 遅刻時間の変数
@@ -203,21 +205,18 @@ bot.command :syuukatu_stats do |event,match,win|
 end
 
 # かにスロット
-count = 0
-slot_list = ["7", "炊飯器", "激臭サプリ", "ミラーボール", "海老臭マット", "COMMUNE"]
 bot.command :slot do |event|
-  slot1 = slot_list.sample
-  slot2 = slot_list.sample
-  slot3 = slot_list.sample
-  event.respond "[#{slot1}| #{slot2} |#{slot3}]"
-  count += 1
-  if slot1 == slot2 && slot2 == slot3
-    event.respond "<@!394789332881244160>あたり！！！！当たったよーーー！！！"
-    event.respond "回転数：#{count}"
-    count = 0
-    if slot 1 == "7"
-      event.respond "<@!394789332881244160>大当たりです!!!!!!!#{event.user.name}さんに500円お支払いください!!!!!"
-    end
+  SlotMachine.roll
+  event.respond "| #{SlotMachine.result[0]} | #{SlotMachine.result[1]} | #{SlotMachine.result[2]} |"
+  event.respond "回転数：#{SlotMachine.count}"
+  if SlotMachine.is_ooatari?
+    event.respond "大当たりだ〜〜〜〜〜!!!!"
+    event.respond "<@!394789332881244160>かに!!!!!#{event.user.name}に500円払え!!!!!"
+    event.respond "回転数：#{SlotMachine.count}"
+  elsif SlotMachine.is_atari?
+    event.respond "当たりだ〜〜〜〜〜!!!!"
+    event.respond "#{event.user.name}ナイスぅ~~!!!!!"
+    event.respond "回転数：#{SlotMachine.count}"
   end
 end
 
