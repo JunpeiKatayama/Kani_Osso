@@ -45,19 +45,21 @@ end
 # helpコマンド
 bot.command :ko_help do |event|
   event.respond "コマンド一覧
-  /late 時間...遅刻時間を入力する（負の値も設定可）
-  /promise 24:59 ...部活開始時間を入力する
-  /arrive ...部活に参加した時間を宣言する
-  /party   ...現在のパーティの状態を確認する
-  /join    ...パーティに参加する
-  /join 名前 ...指定した人をパーティに参加させる
-  /remove  ...パーティを脱退する
-  /remove 名前 ...指定した人をパーティから脱退させる
-  /neru    ...パーティを解散する
+  /late 時間 ...遅刻時間を入力（負の値も設定可）
+  /promise 24:59 ...部活開始時間を入力
+  /arrive ...部活に参加した時間を宣言
+  /party   ...現在のパーティの状態を確認
+  /join    ...パーティに参加
+  /join 名前 ...指定した人をパーティに参加
+  /remove  ...パーティを脱退
+  /remove 名前 ...指定した人をパーティから脱退
+  /neru    ...パーティを解散
   /sin ...かにさんの罪深さを表示
   /slot ...かにスロットをプレイ
+  /add_slot 名前 ...スロットの絵柄を追加
+  /delete_slot 名前 ...該当の絵柄を削除
   -----------------------
-  かに(蟹)おっそ ...botが代りに謝罪する
+  かに(蟹)おっそ ...botが代りに謝罪
   炊飯器        ...炊飯器運用の正常化を促す"
 end
 
@@ -217,6 +219,26 @@ bot.command :slot do |event|
     event.respond "当たりだ〜〜〜〜〜!!!!"
     event.respond "#{event.user.name}ナイスぅ~~!!!!!"
     event.respond "回転数：#{SlotMachine.count}"
+  end
+end
+
+# スロットに絵柄を追加
+bot.command :add_slot do |event,name|
+  SlotMachine.add_slot(name)
+  event.respond "現在の役"
+  event.respond "#{SlotMachine.slot_list}"
+end
+
+# スロットの絵柄を削除
+bot.command :delete_slot do |event,name|
+  if SlotMachine.slot_list.include?(name)
+    SlotMachine.delete_slot(name)
+    event.respond "現在の役"
+    event.respond "#{SlotMachine.slot_list}"
+  else
+    event.respond "なんか間違ってない？"
+    event.respond "現在の役"
+    event.respond "#{SlotMachine.slot_list}"
   end
 end
 
