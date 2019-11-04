@@ -95,7 +95,7 @@ class SlotMachine
   def self.club_count
     @club_count
   end
-
+  
   # 確変時のロール
   def self.kakuhen
     # 5回回転する。当たりが出たらブレイク。
@@ -112,5 +112,9 @@ class SlotMachine
       @club = []
     end
     @count += 1
+  end
+
+  def self.reset_result
+    @result = []
   end
 end
