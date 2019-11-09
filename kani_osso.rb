@@ -214,43 +214,39 @@ bot.command :slot do |event|
     SlotMachine.kakuhen
     event.respond "| #{SlotMachine.result[0]} | #{SlotMachine.result[1]} | #{SlotMachine.result[2]} |"
     event.respond "#{SlotMachine.club} #{SlotMachine.club_count}"
-    judge
+    if SlotMachine.is_ooatari?
+      event.respond "大当たりだ〜〜〜〜〜!!!!
+<@!394789332881244160>かに!!!!!#{event.user.name}に500円払え!!!!!
+回転数：#{SlotMachine.count}"
+      SlotMachine.count_reset
+      SlotMachine.reset_result
+    elsif SlotMachine.is_atari?
+      event.respond "当たりだ〜〜〜〜〜!!!!
+#{event.user.name}ナイスぅ~~!!!!!
+回転数：#{SlotMachine.count}"
+      SlotMachine.count_reset
+      SlotMachine.reset_result
+    end
   else
     SlotMachine.roll
     SlotMachine.add_club
     event.respond "| #{SlotMachine.result[0]} | #{SlotMachine.result[1]} | #{SlotMachine.result[2]} |"
     event.respond "#{SlotMachine.club}"
-    judge
+    if SlotMachine.is_ooatari?
+      event.respond "大当たりだ〜〜〜〜〜!!!!
+<@!394789332881244160>かに!!!!!#{event.user.name}に500円払え!!!!!
+回転数：#{SlotMachine.count}"
+      SlotMachine.count_reset
+      SlotMachine.reset_result
+    elsif SlotMachine.is_atari?
+      event.respond "当たりだ〜〜〜〜〜!!!!
+#{event.user.name}ナイスぅ~~!!!!!
+回転数：#{SlotMachine.count}"
+      SlotMachine.count_reset
+      SlotMachine.reset_result
+    end
   end
 end
-
-# 当たり・大当たり・ハズレを判定
-def judge
-  if SlotMachine.is_ooatari?
-    ooatari
-  elsif SlotMachine.is_atari?
-    atari
-  end
-end
-
-# 当たりの場合
-def atari
-  event.respond "当たりだ〜〜〜〜〜!!!!"
-  event.respond "#{event.user.name}ナイスぅ~~!!!!!"
-  event.respond "回転数：#{SlotMachine.count}"
-  SlotMachine.count_reset
-  SlotMachine.reset_result
-end
-
-# 大当たりの場合
-def ooatari
-  event.respond "大当たりだ〜〜〜〜〜!!!!"
-  event.respond "<@!394789332881244160>かに!!!!!#{event.user.name}に500円払え!!!!!"
-  event.respond "回転数：#{SlotMachine.count}"
-  SlotMachine.count_reset
-  SlotMachine.reset_result
-end
-
 
 # スロットに絵柄を追加
 bot.command :add_slot do |event,name|
