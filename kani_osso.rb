@@ -212,8 +212,8 @@ end
 bot.command :slot do |event|
   if SlotMachine.is_kakuhen?
     SlotMachine.kakuhen
-    event.respond "| #{SlotMachine.result[0]} | #{SlotMachine.result[1]} | #{SlotMachine.result[2]} |"
-    event.respond "#{SlotMachine.club} #{SlotMachine.club_count}"
+    event.respond "| #{SlotMachine.result[0]} | #{SlotMachine.result[1]} | #{SlotMachine.result[2]} |
+#{SlotMachine.club} #{SlotMachine.club_count}"
     if SlotMachine.is_ooatari?
       event.respond "大当たりだ〜〜〜〜〜!!!!
 <@!394789332881244160>かに!!!!!#{event.user.name}に500円払え!!!!!
@@ -230,8 +230,8 @@ bot.command :slot do |event|
   else
     SlotMachine.roll
     SlotMachine.add_club
-    event.respond "| #{SlotMachine.result[0]} | #{SlotMachine.result[1]} | #{SlotMachine.result[2]} |"
-    event.respond "#{SlotMachine.club}"
+    event.respond "| #{SlotMachine.result[0]} | #{SlotMachine.result[1]} | #{SlotMachine.result[2]} |
+#{SlotMachine.club}"
     if SlotMachine.is_ooatari?
       event.respond "大当たりだ〜〜〜〜〜!!!!
 <@!394789332881244160>かに!!!!!#{event.user.name}に500円払え!!!!!
