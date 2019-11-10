@@ -284,4 +284,8 @@ bot.command :fight_kinpei do |event|
   event.respond "ありがとう！結構大変だけど内政頑張る〜！"
 end
 
+bot.command :kinpei_marry_me do |event|
+  event.respond "良いよ・・・💖"
+end
+
 bot.run
