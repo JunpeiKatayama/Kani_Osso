@@ -289,7 +289,7 @@ bot.command :kinpei_marry_me do |event|
 end
 
 constellation = ["牡羊座","牡牛座","双子座","蟹座","獅子座","乙女座","天秤座","蠍座","射手座","山羊座","水瓶座","魚座"]
-bot.command :horoscope do |event|
+bot.message(containing: "星占い") do |event|
   event.respond "今日の運勢
 #{constellation.sample}：最高
 その他：ゴミ"
