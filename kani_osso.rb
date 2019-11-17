@@ -295,4 +295,13 @@ bot.message(containing: "星占い") do |event|
 その他：ゴミ"
 end
 
+bot.message(containing: "料金") do |event|
+  event.respond "蟹エンジニア塾の料金システム
+基本料金　　　500/h
+冬季限定割引 -200/h
+悪魔        *0
+-------------------------------
+合計         0円(+教材費)"
+end
+
 bot.run
