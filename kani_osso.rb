@@ -302,6 +302,17 @@ bot.message(containing: "星占い") do |event|
   end
 end
 
+uranai = []
+bot.command :debug_uranai do |event|
+  event.respond "そんなに疑うならあたしが100回占って回数数えてあげるわよ！！"
+  100.times{
+    uranai << constellation.sample
+  }
+  seiza_count = uranai.group_by(&:itself).map{|k,v| [k,v.count]}.to_h
+  event.respond "#{seiza_count}"
+  seiza_count = {}
+end
+
 bot.message(containing: "料金") do |event|
   event.respond "蟹エンジニア塾の料金システム
 基本料金　　　500/h
