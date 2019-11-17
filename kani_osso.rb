@@ -288,11 +288,18 @@ bot.command :kinpei_marry_me do |event|
   event.respond "良いよ・・・💖"
 end
 
+sisiza_count = 0
 constellation = ["牡羊座","牡牛座","双子座","蟹座","獅子座","乙女座","天秤座","蠍座","射手座","山羊座","水瓶座","魚座"]
 bot.message(containing: "星占い") do |event|
+  saikou = constellation.sample
   event.respond "今日の運勢
-#{constellation.sample}：最高
+#{saikou}：最高
 その他：ゴミ"
+  if saikou = "獅子座"
+    sisiza_count += 1
+   event.respond "また獅子座に忖度してしまいました
+獅子座の当選回数： #{sisiza_count}"
+  end
 end
 
 bot.message(containing: "料金") do |event|
