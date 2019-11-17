@@ -295,7 +295,7 @@ bot.message(containing: "星占い") do |event|
   event.respond "今日の運勢
 #{saikou}：最高
 その他：ゴミ"
-  if saikou = "獅子座"
+  if saikou == "獅子座"
     sisiza_count += 1
    event.respond "また獅子座に忖度してしまいました
 獅子座の当選回数： #{sisiza_count}"
