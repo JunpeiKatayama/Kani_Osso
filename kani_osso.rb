@@ -59,9 +59,13 @@ bot.command :ko_help do |event|
   /slot_help ...スロットの説明を表示
   /add_slot 名前 ...スロットの絵柄を追加
   /delete_slot 名前 ...該当の絵柄を削除
+  /say ...習近平に喋らせます
   -----------------------
   かに(蟹)おっそ ...botが代りに謝罪
-  炊飯器        ...炊飯器運用の正常化を促す"
+  炊飯器        ...炊飯器運用の正常化を促す
+  -----------------------
+  日記待ってます ...日記を催促する
+  /kaita ...日記を書いたことを習近平に伝える"
 end
 
 # 遅刻時間を読み込み
@@ -322,4 +326,18 @@ bot.message(containing: "料金") do |event|
 合計         0円(+教材費)"
 end
 
+bot.command :say do |event, message|
+  event.respond "習近平です。#{message}。"
+end
+
+wait_for_nikki = 0
+bot.message(containing: "日記待ってます") do |event|
+  wait_for_nikki += 1
+  event.respond "日記を#{wait_for_nikki}回催促しました"
+end
+
+bot.command :kaita do |event|
+  event.respond "#{wait_for_nikki}回催促してようやく書いたようです。"
+  wait_for_nikki = 0
+end
 bot.run
