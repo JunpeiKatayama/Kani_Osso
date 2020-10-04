@@ -350,7 +350,7 @@ youtuu_times = 0
 # 腰痛コマンド
 koshi_list = %w[腰 腰痛 こし]
 bot.message(containing: koshi_list) do |event|
-  koshi_list += 1
+  youtuu_times += 1
   event.respond "#{youtuu_times}腰痛"
 end
 
