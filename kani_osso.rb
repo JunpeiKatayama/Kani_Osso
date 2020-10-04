@@ -7,6 +7,7 @@ require 'net/http'
 
 require './slot_machine'
 
+require "net/http"
 bot = Discordrb::Commands::CommandBot.new token: ENV['DBOT_KANI_OSSO_TOKEN'], client_id: ENV['DBOT_KANI_OSSO_ID'], prefix: '/'
 
 # 遅刻時間の変数
@@ -358,5 +359,16 @@ end
 bot.command :g1 do |event|
   event.respond 'https://twitter.com/i/status/1311228149259100160'
 end
+
+
+
+bot.command :cov do |event|
+  uri = URI.parse("https://jsonplaceholder.typicode.com/todos/1")
+  response = Net::HTTP.get_response(https://www.google.com/url?q=https://raw.githubusercontent.com/tokyo-metropolitan-gov/covid19/master/data/data.json&sa=D&ust=1601813987357000&usg=AFQjCNHdDPLWD9ytjZh2RDfDCHZCbCMySA)
+  result = JSON.parse(response.body)
+  today = result['results'][-1]['小計']
+  event.respond today
+end
+
 
 bot.run
