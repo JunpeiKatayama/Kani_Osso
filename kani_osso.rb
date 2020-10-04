@@ -345,7 +345,8 @@ end
 youtuu_times = 0
 
 # 腰痛コマンド
-bot.command :koshi do |event|
+koshi_list = %w[腰 腰痛 こし]
+bot.command message(containing: koshi_list) do |event|
   event.respond "#{youtuu_times}腰痛"
 end
 
