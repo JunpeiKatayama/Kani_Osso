@@ -65,7 +65,10 @@ bot.command :ko_help do |event|
   炊飯器        ...炊飯器運用の正常化を促す
   -----------------------
   日記待ってます ...日記を催促する
-  /kaita ...日記を書いたことを習近平に伝える"
+  /kaita ...日記を書いたことを習近平に伝える
+  -----------------------
+  g1 ...武インパクト豊
+  腰 こし 腰痛 ...腰痛をカウント"
 end
 
 # 遅刻時間を読み込み
@@ -346,7 +349,7 @@ youtuu_times = 0
 
 # 腰痛コマンド
 koshi_list = %w[腰 腰痛 こし]
-bot.command message(containing: koshi_list) do |event|
+bot.message(containing: koshi_list) do |event|
   event.respond "#{youtuu_times}腰痛"
 end
 
