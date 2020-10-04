@@ -363,8 +363,8 @@ end
 
 
 bot.command :cov do |event|
-  uri = URI.parse("https://jsonplaceholder.typicode.com/todos/1")
-  response = Net::HTTP.get_response(https://www.google.com/url?q=https://raw.githubusercontent.com/tokyo-metropolitan-gov/covid19/master/data/data.json&sa=D&ust=1601813987357000&usg=AFQjCNHdDPLWD9ytjZh2RDfDCHZCbCMySA)
+  uri = URI.parse("https://www.google.com/url?q=https://raw.githubusercontent.com/tokyo-metropolitan-gov/covid19/master/data/data.json&sa=D&ust=1601813987357000&usg=AFQjCNHdDPLWD9ytjZh2RDfDCHZCbCMySA")
+  response = Net::HTTP.get_response(uri)
   result = JSON.parse(response.body)
   today = result['results'][-1]['小計']
   event.respond today
