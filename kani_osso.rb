@@ -60,13 +60,13 @@ bot.command :ko_help do |event|
   /slot_help ...スロットの説明を表示
   /add_slot 名前 ...スロットの絵柄を追加
   /delete_slot 名前 ...該当の絵柄を削除
-  /say ...習近平に喋らせます
+  /say ...ヤンクミに喋らせます
   -----------------------
   かに(蟹)おっそ ...botが代りに謝罪
   炊飯器        ...炊飯器運用の正常化を促す
   -----------------------
   日記待ってます ...日記を催促する
-  /kaita ...日記を書いたことを習近平に伝える
+  /kaita ...日記を書いたことをヤンクミに伝える
   -----------------------
   g1 ...武インパクト豊
   腰 こし 腰痛 ...腰痛をカウント"
@@ -331,7 +331,7 @@ bot.message(containing: '料金') do |event|
 end
 
 bot.command :say do |event, message|
-  event.respond "習近平です。#{message}。"
+  event.respond "#{message}！私は…お前らの……担任の先生だ！！！！。"
 end
 
 wait_for_nikki = 0
@@ -358,6 +358,12 @@ end
 # G1武豊コマンド
 bot.command :g1 do |event|
   event.respond 'https://twitter.com/i/status/1311228149259100160'
+end
+
+# 腰痛コマンド
+yan_words = %w[ヤンクミ やんくみ]
+bot.message(containing: yan_words) do |event|
+  event.respond "ぽまえら！！"
 end
 
 bot.run
